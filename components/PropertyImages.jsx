@@ -1,10 +1,19 @@
-import Image from 'next/image';
+import Image from 'next/image'
+import { Gallery, Item } from 'react-photoswipe-gallery'
 
 const PropertyImages = ({ images }) => {
   return (
+    <Gallery>
       <section className='bg-blue-50 p-4'>
         <div className='container mx-auto'>
           {images.length === 1 ? (
+            <Item
+              original={images[0]}
+              thumbnail={images[0]}
+              width='1000'
+              height='600'
+            >
+              {({ ref, open }) => (
                 <Image
                   ref={ref}
                   onClick={open}
@@ -15,6 +24,8 @@ const PropertyImages = ({ images }) => {
                   height={400}
                   priority={true}
                 />
+              )}
+            </Item>
           ) : (
             <div className='grid grid-cols-2 gap-4'>
               {images.map((image, index) => (
@@ -28,6 +39,12 @@ const PropertyImages = ({ images }) => {
                   }
                 `}
                 >
+                  <Item
+                    original={image}
+                    thumbnail={image}
+                    width='1000'
+                    height='600'
+                  >
                     {({ ref, open }) => (
                       <Image
                         ref={ref}
@@ -41,12 +58,14 @@ const PropertyImages = ({ images }) => {
                         priority={true}
                       />
                     )}
+                  </Item>
                 </div>
               ))}
             </div>
           )}
         </div>
       </section>
-  );
-};
-export default PropertyImages;
+    </Gallery>
+  )
+}
+export default PropertyImages
